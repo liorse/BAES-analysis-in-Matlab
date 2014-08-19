@@ -15,8 +15,8 @@
 %% Read the BAES data files and Temperature log file
 % filename input variable to the function
 % input
-FilenameData='PSL_BAES.txt'; 
-FilenameTemp='Temp Exp2 day1.log';
+FilenameData='20140810 stability test old filters.txt'; 
+%FilenameTemp='Temp Exp2 day1.log';
 NumberofHeaderLines=15; % may change in the future
 deltaWavelength=0.01; % interpolate 0.01 nm
 LinearFit = cell(2,1);
@@ -24,7 +24,7 @@ LinearFit{1} = [0.11709 -2.5525];  % Calibration for 365
 LinearFit{2} = [0.10515 -2.3030];  % Calibration for 405 
 
 % get wavelength data - x coordinates from file
-Data = importdata(FilenameData);
+Data = importdata(FilenameData,',');
 WaveLength = Data.data;
 
 % Get counts data from 365 and 405 cavities
@@ -331,7 +331,7 @@ grid on
 
 subplot(4,1,4)
 hold off
-plot(ExperimentTime(startIndex:SignalNum), (max(CavityCountsCorrectedXcorr{1}(:,1:800),[],2)-max(CavityCountsCorrectedXcorr{1}(1,1:800)))/max(CavityCountsCorrectedXcorr{1}(1,1:800))*100)  % 365
+plot(ExperimentTime(startIndex:SignalNum), (max(CavityCountsCorrectedXcorr{1}(:,:),[],2)-max(CavityCountsCorrectedXcorr{1}(1,:)))/max(CavityCountsCorrectedXcorr{1}(1,:))*100)  % 365
 hold all
 % integration over all wavelength
 %plot(ExperimentTime(startIndex:SignalNum), sum(CavityCountsCorrectedXcorr{1}(startIndex:SignalNum,:),2)./sum(CavityCountsCorrectedXcorr{1}(startIndex,:)))  % 365
